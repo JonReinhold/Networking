@@ -16,8 +16,7 @@ class SubnetConversion():
         return ""
         
     def dec_to_bin(self, number):
-        binum = bin(number)
-        binum = (binum[2:])
+        binum = bin(number)[2:]
         print(binum)
         return ""
 
