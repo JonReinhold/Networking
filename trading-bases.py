@@ -3,52 +3,78 @@
 
 from sys import argv
 
-class SubnetConversion():
-    def main(self):
+def main():
+    global theNum
+    global mode
 
-        global theNum
-        mode = argv[1]
-    
-        theNum = input("Enter address to to convert to {}: ".format(mode))
-        if mode.lower() == "db":
-            SubnetConversion.dec_to_bin(self, theNum)
-        elif mode.lower() == "bd":
-            SubnetConversion.bin_to_dec(self, theNum)
-        elif mode.lower() == "dh":
-            SubnetConversion.dec_to_hex(self, theNum)
-        elif mode.lower() == "hd":
-            SubnetConversion.hex_to_dec(self, theNum)
-        elif mode.lower() == "hb":
-            SubnetConversion.hex_to_bin(self, theNum)
-        elif mode.lower() == "bh":
-            SubnetConversion.bin_to_hex(self, theNum)
+    mode = argv[1]
+    theNum = input("Enter address to to convert to {}: ".format(mode))
+
+    if "." in theNum:
+        concat = ""
+        theNum = theNum.split(".")
+        #print("theNum list is :", theNum)
+
+        for i in theNum:
+            #print("Value for this loop:", i)
+            #print("concat: ", concat)
+            #print("value from converstion:", conversion(i))
+            concat = concat + str(conversion(i)) + "."
+        concat = concat[:-1]
+        return concat
+
+    elif ":" in theNum:
+        concat = ""
+        theNum = theNum.split(":")
+
+        for i in theNum:
+            concat = concat + str(conversion(i)) + ":"
+            concat = concat[:-1]
+        return concat
+
+    else:
+        return conversion(theNum)
+
+
+def conversion(number):
+    if mode.lower() == "db":
+        #print("number passed to conversion", number)
+        return(dec_to_bin(number))
+    elif mode.lower() == "bd":
+        return bin_to_dec(number)
+    elif mode.lower() == "dh":
+        return dec_to_hex(number)
+    elif mode.lower() == "hd":
+        return hex_to_dec(number)
+    elif mode.lower() == "hb":
+        return hex_to_bin(number)
+    elif mode.lower() == "bh":
+        return bin_to_hex(number)
 
         
-    def dec_to_bin(self, number):
-        binum = bin(int(number))
-        print(str(binum)[2:])
+def dec_to_bin(number):
+    binum = bin(int(number))
+    return str(binum)[2:]
 
-    def bin_to_dec(self, number):
-        bdnum = int((number), 2)
-        print(bdnum)
+def bin_to_dec(number):
+    bdnum = int((number), 2)
+    return bdnum
 
-    def dec_to_hex(self, number):
-        dhnum = hex(int(number))
-        print(str(dhnum)[2:])
+def dec_to_hex(number):
+    dhnum = hex(int(number))
+    return str(dhnum)[2:]
     
-    def hex_to_dec(self, number):
-        hdnum = int(number, 16)
-        print(hdnum)
+def hex_to_dec(number):
+    hdnum = int(number, 16)
+    return hdnum
 
-    def hex_to_bin(self, number):
-        print(bin(int(number,16)))
+def hex_to_bin(number):
+    return bin(int(number,16))
 
-    def bin_to_hex(self, number):
-        bhnum = hex(int(number,2))
-        print(bhnum)
+def bin_to_hex(number):
+    bhnum = hex(int(number,2))
+    return bhnum
     
-
-SubnetInst = SubnetConversion()
 
 if __name__ == '__main__':
-    SubnetInst.main()
+    print(main())
